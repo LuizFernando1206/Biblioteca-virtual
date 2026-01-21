@@ -1,6 +1,6 @@
 # Biblioteca Virtual
 
-API REST de biblioteca virtual em **Java 21** com **Spring Boot** e **PostgreSQL**, incluindo autenticação **JWT**, criptografia de senha e relacionamento entre usuários e livros.
+API REST de biblioteca virtual em **Java 21** com **Spring Boot** e **PostgreSQL**, incluindo autenticação **JWT**, documentação com **Swagger** criptografia de senha e relacionamento entre usuários e livros.
 
 ---
 
@@ -19,7 +19,8 @@ API REST de biblioteca virtual em **Java 21** com **Spring Boot** e **PostgreSQL
 - **PostgreSQL**  
 - **Spring Security (JWT)**  
 - **Maven**  
-- **JPA / Hibernate**  
+- **JPA / Hibernate**
+- **Swagger**
 - **Git / GitHub**  
 
 ---
