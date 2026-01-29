@@ -9,6 +9,8 @@
     import com.api.biblioteca_virtual.mapper.UsuarioMapper;
     import com.api.biblioteca_virtual.model.Usuario;
     import com.api.biblioteca_virtual.repository.UsuarioRepository;
+    import com.api.biblioteca_virtual.security.JwtService;
+    import jakarta.validation.Valid;
     import lombok.RequiredArgsConstructor;
     import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@
         private final UsuarioRepository usuarioRepository;
         private final  UsuarioMapper usuarioMapper;
         private final PasswordEncoder passwordEncoder;
+        private final JwtService jwtService;
 
         public UsuarioResponseDTO buscarPorId(Long id) {
             return usuarioRepository.findById(id)
@@ -69,14 +72,21 @@
 
         public LoginResponseDTO login(LoginRequestDTO dto) {
 
-            Usuario usuario = usuarioRepository.findByEmail(dto.email())
-                    .orElseThrow(() -> new BusinessException("Email ou senha inválidos"));
+           Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
+                   .orElseThrow(() -> new BusinessException("Email ou senha inválidos"));
 
-            if (!passwordEncoder.matches(dto.senha(), usuario.getSenha())) {
+            if(!passwordEncoder.matches(dto.getSenha(), usuario.getSenha())) {
                 throw new BusinessException("Email ou senha inválidos");
             }
+            String token = jwtService.generateToken(usuario.getEmail());
 
-            return usuario;
+            return new LoginResponseDTO(
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getEmail(),
+                    usuario.getRole().name(),
+                    token
+            );
         }
 
     }

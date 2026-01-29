@@ -1,5 +1,6 @@
 package com.api.biblioteca_virtual.mapper;
 
+import com.api.biblioteca_virtual.dto.LoginResponseDTO;
 import com.api.biblioteca_virtual.dto.UsuarioRequestDTO;
 import com.api.biblioteca_virtual.dto.UsuarioResponseDTO;
 import com.api.biblioteca_virtual.model.Role;
@@ -8,6 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioMapper {
+
+    public LoginResponseDTO toLoginResponseDTO(Usuario usuario) {
+        return new LoginResponseDTO(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getRole().name(),
+                null
+        );
+    }
+
 
     public Usuario toEntity(UsuarioRequestDTO dto) {
         if (dto == null) {
